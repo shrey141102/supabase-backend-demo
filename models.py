@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Enum, func, Index
+from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Enum, func
 from sqlalchemy.sql import expression
 from sqlalchemy.dialects.postgresql import TIMESTAMP
 from sqlalchemy.orm import relationship
@@ -32,16 +32,8 @@ class Contact(Base):
     # Simple relationship without cascade issues
     secondary_contacts = relationship(
         'Contact', 
-        foreign_keys=[linkedId],
         backref='primary_contact',
         remote_side=[id]
-    )
-    
-    # Define indexes properly as Table arguments
-    __table_args__ = (
-        Index('idx_email', 'email'),
-        Index('idx_phone', 'phoneNumber'),
-        Index('idx_linked', 'linkedId'),
     )
     
     def __init__(self, email=None, phone_number=None, linked_id=None, link_precedence='primary'):
