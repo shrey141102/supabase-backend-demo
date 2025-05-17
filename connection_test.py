@@ -7,8 +7,8 @@ try:
         host="aws-0-ap-south-1.pooler.supabase.com",
         port="5432",
         database="postgres",
-        user="postgres.ujpcseyqhglxdnuysgcl",
-        password="shrey@1411"
+        user="postgres.abcd",
+        password="xyz"
     )
     
     cursor = conn.cursor()

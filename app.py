@@ -17,7 +17,11 @@ def create_app():
     
     # Initialize the database within the app context
     with app.app_context():
-        init_db()
+        try:
+            init_db()
+            app.logger.info("Database initialized successfully")
+        except Exception as e:
+            app.logger.error(f"Error initializing database: {str(e)}")
     
     # Register blueprints
     app.register_blueprint(identify_bp)
