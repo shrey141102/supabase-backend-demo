@@ -1,0 +1,16 @@
+-- Create contact table
+CREATE TABLE IF NOT EXISTS contact (
+  id SERIAL PRIMARY KEY,
+  "phoneNumber" VARCHAR(255),
+  email VARCHAR(255),
+  "linkedId" INTEGER REFERENCES contact(id),
+  "linkPrecedence" VARCHAR(9) NOT NULL CHECK ("linkPrecedence" IN ('primary', 'secondary')),
+  "createdAt" TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL,
+  "updatedAt" TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL,
+  "deletedAt" TIMESTAMP WITH TIME ZONE
+);
+
+-- Create indexes for better performance
+CREATE INDEX IF NOT EXISTS idx_email ON contact(email);
+CREATE INDEX IF NOT EXISTS idx_phone ON contact("phoneNumber");
+CREATE INDEX IF NOT EXISTS idx_linked ON contact("linkedId");

@@ -1,0 +1,25 @@
+# 1. Create a new primary contact
+curl -X POST http://localhost:5001/identify \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "lorraine@hillvalley.edu",
+    "phoneNumber": "123456"
+  }'
+
+# 2. Create a secondary contact (same phone, different email)
+curl -X POST http://localhost:5001/identify \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "mcfly@hillvalley.edu",
+    "phoneNumber": "123456"
+  }'
+
+# 3. Test lookup with just email
+curl -X POST http://localhost:5001/identify \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "lorraine@hillvalley.edu"
+  }'
+
+# 4. Test the health endpoint
+curl http://localhost:5001/health

@@ -1,0 +1,21 @@
+services:
+  # A web service
+  - type: web
+    name: bitespeed-identity
+    env: python
+    region: Oregon # choose a region close to you
+    plan: free
+    pythonVersion: 3.9
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:create_app() --bind 0.0.0.0:$PORT
+    # Auto-deploy on push to the master branch
+    autoDeploy: true
+    envVars:
+      - key: DATABASE_URL
+        sync: false # this should be manually set as a secret
+      - key: PORT
+        value: 10000
+      - key: DEBUG
+        value: false
+      - key: WORKERS
+        value: 4
